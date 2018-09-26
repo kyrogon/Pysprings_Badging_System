@@ -6,6 +6,13 @@ A web application to keep track of 'merit badges' for the PySprings users group.
 This is a Django application that allows for people to track what they've learned.
 It also allows you to see what you have the prerequisites for.
 
+
+Getting Started
+---------------
+ - Clone project & cd to root
+ - run `python manage.py migrate`
+ - `python manage.py runserver` to start on localhost
+
 Build
 -----
 **TODO:** Continuous integration
