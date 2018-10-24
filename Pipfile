@@ -4,11 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==2.1.1"
+django = {version = "==2.1.1"}
 
 [dev-packages]
 black = "==18.6b4"
-mypy = "==0.641"
+mypy = "==0.670"
 pre-commit = "==1.14.4"
 pylint = "==2.3.0"
 pytest = "==3.9.2"
