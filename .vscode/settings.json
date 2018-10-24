@@ -1,5 +1,0 @@
-{
-    "python.linting.pylintEnabled": false,
-    "python.formatting.provider": "black",
-    "python.pythonPath": "/home/giblesnot/.local/share/virtualenvs/Pysprings_Badging_System-U_oK3S4o/bin/python"
-}
