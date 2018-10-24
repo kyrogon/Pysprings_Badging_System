@@ -1,7 +1,11 @@
 {
     "_meta": {
         "hash": {
+<<<<<<< HEAD
             "sha256": "db85a442cbebceb161e3426cc644f39479b7ed52399cada6433685424c05043e"
+=======
+            "sha256": "52b8bc844a3e1e04824dc59fccd8e716546ad8d651b977cc05ebd10d21be2e79"
+>>>>>>> pinning Django to 2.1.1
         },
         "pipfile-spec": 6,
         "requires": {
@@ -159,6 +163,7 @@
             "hashes": [
                 "sha256:bf92637198836372b520efcba9e020c330123be8ce527e535d185ed4b6f45694",
                 "sha256:e76826342cefe3c3d5f7e8ee4316b80d1dd8a300781612ddbc765c17ba25a6c6"
+<<<<<<< HEAD
             ],
             "version": "==1.7.0"
         },
@@ -169,6 +174,10 @@
             ],
             "index": "pypi",
             "version": "==2.1.1"
+=======
+            ],
+            "version": "==1.7.0"
+>>>>>>> pinning Django to 2.1.1
         },
         "pytest": {
             "hashes": [
