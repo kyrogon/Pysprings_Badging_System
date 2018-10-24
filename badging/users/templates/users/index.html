@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
 <head>
     <title>Badge System</title>
+    <link rel="stylesheet" type="text/css" href="{% static "index.css" %}">
 </head>
 <body>
+<p class="bold">Members</p>
 {% if latest_person_list %}
 	<ul>
 	{% for person in latest_person_list %}
@@ -18,7 +21,7 @@
 
 <form action="{% url 'users:add_person' %}" method="post">
 {% csrf_token %}
-	Name:<br>
+<p class="bold">Name</p>
 	<input type="text" name="name" value="">
 	<br>
 	
