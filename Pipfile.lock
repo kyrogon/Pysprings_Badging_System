@@ -1,11 +1,7 @@
 {
     "_meta": {
         "hash": {
-<<<<<<< HEAD
-            "sha256": "db85a442cbebceb161e3426cc644f39479b7ed52399cada6433685424c05043e"
-=======
-            "sha256": "52b8bc844a3e1e04824dc59fccd8e716546ad8d651b977cc05ebd10d21be2e79"
->>>>>>> pinning Django to 2.1.1
+            "sha256": "18dfbf12ccfef19ba724a78a0b24e6fda200ecd470b25d2380b03b48acfb4f9f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -22,11 +18,11 @@
     "default": {
         "django": {
             "hashes": [
-                "sha256:acdcc1f61fdb0a0c82a1d3bf1879a414e7732ea894a7632af7f6d66ec7ab5bb3",
-                "sha256:efbcad7ebb47daafbcead109b38a5bd519a3c3cd92c6ed0f691ff97fcdd16b45"
+                "sha256:04f2e423f2e60943c02bd2959174b844f7d1bcd19eabb7f8e4282999958021fd",
+                "sha256:e1cc1cd6b658aa4e052f5f2b148bfda08091d7c3558529708342e37e4e33f72c"
             ],
             "index": "pypi",
-            "version": "==2.1.2"
+            "version": "==2.1.1"
         },
         "pytz": {
             "hashes": [
@@ -163,7 +159,6 @@
             "hashes": [
                 "sha256:bf92637198836372b520efcba9e020c330123be8ce527e535d185ed4b6f45694",
                 "sha256:e76826342cefe3c3d5f7e8ee4316b80d1dd8a300781612ddbc765c17ba25a6c6"
-<<<<<<< HEAD
             ],
             "version": "==1.7.0"
         },
@@ -174,10 +169,6 @@
             ],
             "index": "pypi",
             "version": "==2.1.1"
-=======
-            ],
-            "version": "==1.7.0"
->>>>>>> pinning Django to 2.1.1
         },
         "pytest": {
             "hashes": [
