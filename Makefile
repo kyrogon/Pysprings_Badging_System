@@ -13,5 +13,11 @@ setup:
 activate:
 	pipenv shell -c
 
+lint:
+	pipenv run pylint badging tests/*
+	pipenv run mypy badging tests/*
+
+build-ci: lint test
+
 test:
 	pipenv run -- py.test tests -s -v
