@@ -1,5 +1,6 @@
 PySprings Badging System
 ========================
+[![Build Status](https://travis-ci.org/pysprings/Pysprings_Badging_System.svg?branch=master)](https://travis-ci.org/pysprings/Pysprings_Badging_System)
 
 A web application to keep track of 'merit badges' for the PySprings users group.
 
