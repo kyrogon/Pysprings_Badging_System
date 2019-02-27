@@ -10,6 +10,22 @@ It also allows you to see what you have the prerequisites for.
 
 Getting Started
 ---------------
+
+### Environment Setup
+1.  Clone the project
+1.  `cd` into the source folder
+1.  Ensure Python3.6 is installed  
+    `python3.6 --version`
+1.  Ensure `pipenv` is installed  
+    `pipenv --version`
+1.  Create a virtual environment with `pipenv`  
+    `pipenv install --dev`
+1.  Activate the virtual environment  
+    `pipenv shell`
+1.  Install the `pre-commit` hooks  
+    `pre-commit install`
+
+### Running the project
  - Clone project & cd to root
  - run `python manage.py migrate`
  - `python manage.py runserver` to start on localhost
