@@ -10,7 +10,7 @@ django = "==2.1.1"
 black = "==18.6b4"
 mypy = "==0.641"
 pre-commit = "==1.14.4"
-pylint = "==2.1.1"
+pylint = "==2.3.0"
 pytest = "==3.9.2"
 
 [requires]
