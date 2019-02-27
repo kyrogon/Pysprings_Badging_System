@@ -1,6 +1,5 @@
 repos:
--   repo: https://github.com/ambv/black
-    rev: stable
+-   repo: local
     hooks:
     - id: black
       language_version: python3.6
@@ -8,3 +7,4 @@ repos:
     rev: v1.2.3
     hooks:
     - id: flake8
+#     - id: debug-statements
