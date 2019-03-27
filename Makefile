@@ -21,5 +21,7 @@ lint:
 
 build-ci: lint test
 
+test: export PYTHONPATH=.
+test: export DJANGO_SETTINGS_MODULE=badging.badging.settings
 test:
 	pipenv run -- py.test tests -s -v
