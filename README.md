@@ -26,7 +26,7 @@ Getting Started
     `pre-commit install`
 
 ### Running the project
- - Clone project & cd to root
+ - Clone project & cd to the `badging` folder
  - run `python manage.py migrate`
  - `python manage.py runserver` to start on localhost
 
