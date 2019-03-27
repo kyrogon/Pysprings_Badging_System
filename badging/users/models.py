@@ -7,8 +7,11 @@ class Person(models.Model):
     # email = models.CharField(max_length=200)
     # password = models.CharField(max_length=200)
 
-    def __str__(self):
-        return self.name
+    def __repr__(self) -> str:
+        return f"Person[{self.name}]"
+
+    def __str__(self) -> str:
+        return repr(self)
 
 
 class Badge(models.Model):
@@ -16,5 +19,12 @@ class Badge(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     presenter = models.CharField(max_length=200)
     # summary = models.CharField(max_length=1000)
-    def __str__(self):
-        return self.name
+
+    def __repr__(self) -> str:
+        return (
+            f"Badge[name={self.name}, person={self.person}, "
+            f"presenter={self.presenter}]"
+        )
+
+    def __str__(self) -> str:
+        return repr(self)
