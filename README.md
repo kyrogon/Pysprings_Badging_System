@@ -34,6 +34,11 @@ Build
 -----
 **TODO:** Continuous integration
 
+Testing
+-------
+To run the tests, run the command `make tests`.
+There are several environment variables that need to be set and the make file sets them.
+
 Installation
 ------------
 **TODO**
