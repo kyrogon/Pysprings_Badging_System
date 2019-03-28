@@ -1,9 +1,4 @@
-import django
-from django.test import TestCase
-
-django.setup()
-
-from badging.users import models  # pylint: disable=wrong-import-position # isort:skip
+from badging.users import models
 
 
 def test_person_str():
