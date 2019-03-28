@@ -36,8 +36,7 @@ Build
 
 Testing
 -------
-To run the tests, run the command `make tests`.
-There are several environment variables that need to be set and the make file sets them.
+To run the tests, run the command `make tests` or `pytest` in the root directory.
 
 Installation
 ------------
