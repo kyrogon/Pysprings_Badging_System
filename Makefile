@@ -14,7 +14,7 @@ activate:
 	pipenv shell -c
 
 lint:
-	pipenv run pylint badging tests/*
+	pipenv run pylint badging users tests/*
 	pipenv run mypy badging tests/*
 	pipenv run black badging --check
 	pipenv run black tests --check

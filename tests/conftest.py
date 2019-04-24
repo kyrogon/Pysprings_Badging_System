@@ -10,7 +10,7 @@ import django
 # where we run the tests.
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "badging.badging.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "badging.settings")
 
 
 def pytest_configure():

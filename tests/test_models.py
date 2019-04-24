@@ -1,4 +1,4 @@
-from badging.users import models
+from users import models
 
 
 def test_person_str():
