@@ -58,21 +58,22 @@ def add_person(request):
 def add_badge(request, person_id):
     error = ''
     person = get_object_or_404(Person, pk=person_id)
-    # Tries and excepts must be changed so no blank badges can be entered
-    try:
-        b_name = request.POST["name"]
-        b_presenter = request.POST["presenter"]
-    except (KeyError, Name.DoesNotExist):
+
+    # Get field values or empty string
+    b_name = request.POST.get('name', '')
+    b_presenter = request.POST.get('presenter', '')
+
+    # return a warning if any fields were left blank
+    if '' in (b_name, b_presenter):
         return render(
             request,
-            "users/badge.html",
-            {"person": person, "error_message": "Invalid Badge Name."},
-        )
-    except (KeyError, Presenter.DoesNotExist):
-        return render(
-            request,
-            "users/badge.html",
-            {"person": person, "error_message": "Invalid Presenter Name."},
+            'users/badge.html',
+            {
+                'person':
+                    person,
+                'error_message':
+                    'Neither badge name or presenter may be left blank'
+            },
         )
     else:
         badge, _ = Badge.objects.get_or_create(
@@ -87,7 +88,7 @@ def add_badge(request, person_id):
 
         return render(request, "users/detail.html",
                       {
-                          "person": person,
-                          "error_message":  error
+                          "person":        person,
+                          "error_message": error
                       },
                       )
