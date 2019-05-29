@@ -6,7 +6,7 @@
 
 <ul>
 {% for badge in person.badge_set.all %}
-	<li>{{ badge.name }}</li>
+	<li>{{ badge.name }} by {{ badge.presenter }}</li>
 {% endfor %}
 </ul>
 
