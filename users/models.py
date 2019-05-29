@@ -13,9 +13,12 @@ class Person(models.Model):
 
 
 class Badge(models.Model):
-    name = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=200)
     # person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    presenter = models.CharField(max_length=200, unique=True)
+    presenter = models.CharField(max_length=200)
+
+    class Meta:
+        unique_together = ('name', 'presenter')
 
     def __repr__(self) -> str:
         return (
