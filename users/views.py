@@ -75,11 +75,11 @@ def add_badge(request, person_id):
             {"person": person, "error_message": "Invalid Presenter Name."},
         )
     else:
-        badge, created = Badge.objects.get_or_create(
+        badge, _ = Badge.objects.get_or_create(
             name=b_name,
             presenter=b_presenter
         )
-        if badge.user_set.get(name=person.name):
+        if badge.user_set.filter(name=person.name):
             error = f'User has already obtained {badge}'
         else:
             badge.user_set.add(person)
