@@ -4,6 +4,7 @@ from django.template import loader
 
 from .models import Person, Badge
 
+
 # Create your views here.
 def index(request):
     latest_person_list = Person.objects.order_by("-name")
@@ -34,7 +35,7 @@ def add_person(request):
         latest_person_list = Person.objects.order_by("-name")
         context = {
             "latest_person_list": latest_person_list,
-            "error_message": "Invalid Person Name",
+            "error_message":      "Invalid Person Name",
         }
         return render(request, "users/index.html", context)
     else:
@@ -44,7 +45,7 @@ def add_person(request):
             if p_name == person_name:
                 context = {
                     "latest_person_list": latest_person_list,
-                    "error_message": "Person already exists",
+                    "error_message":      "Person already exists",
                 }
                 return render(request, "users/index.html", context)
         p = Person(name=p_name)
@@ -55,6 +56,7 @@ def add_person(request):
 
 
 def add_badge(request, person_id):
+    error = ''
     person = get_object_or_404(Person, pk=person_id)
     # Tries and excepts must be changed so no blank badges can be entered
     try:
@@ -73,15 +75,19 @@ def add_badge(request, person_id):
             {"person": person, "error_message": "Invalid Presenter Name."},
         )
     else:
-        badge_list = person.badge_set.order_by("-name")
-        for badge in badge_list:
-            badge_name = badge.name
-            if b_name == badge_name:
-                return render(
-                    request,
-                    "users/badge.html",
-                    {"person": person, "error_message": "Badge already exists."},
-                )
-        person.badge_set.create(name=b_name, presenter=b_presenter)
-        # print(request.POST)
-        return render(request, "users/detail.html", {"person": person})
+        badge, created = Badge.objects.get_or_create(
+            name=b_name,
+            presenter=b_presenter
+        )
+        if badge.user_set.get(name=person.name):
+            error = f'User has already obtained {badge}'
+        else:
+            badge.user_set.add(person)
+            badge.save()
+
+        return render(request, "users/detail.html",
+                      {
+                          "person": person,
+                          "error_message":  error
+                      },
+                      )
