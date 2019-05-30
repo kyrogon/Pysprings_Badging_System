@@ -1,15 +1,19 @@
-<h1>{{ person.name }}</h1>
+{% extends 'users/base.html' %}
 
-<h2>Badge List:</h2>
+{% block content %}
+    <h1>{{ person.name }}</h1>
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <h2>Badge List:</h2>
 
-<ul>
-{% for badge in person.badge_set.all %}
-	<li><a href="{% url "users:badge_detail" badge.id %}">{{ badge.name }} by {{ badge.presenter }}</li>
-{% endfor %}
-</ul>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-{#<form action="{% url 'users:badge_detail' badge.id %}">#}
-{#	<input type="submit" value="Add Badge">#}
-{#</form>#}
+    <ul>
+        {% for badge in person.badge_set.all %}
+            <li><a href="{% url "users:badge_detail" badge.id %}">{{ badge.name }} by {{ badge.presenter }}</li>
+        {% endfor %}
+    </ul>
+
+    {#<form action="{% url 'users:badge_detail' badge.id %}">#}
+    {#	<input type="submit" value="Add Badge">#}
+    {#</form>#}
+{% endblock %}

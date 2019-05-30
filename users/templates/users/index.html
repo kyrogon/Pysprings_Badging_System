@@ -1,30 +1,26 @@
-<!DOCTYPE html>
-<html>
-{% load static %}
-<head>
-    <title>Badge System</title>
-    <link rel="stylesheet" type="text/css" href="{% static "index.css" %}">
-</head>
-<body>
-<p class="bold">Members</p>
-{% if latest_person_list %}
-	<ul>
-	{% for person in latest_person_list %}
-		<li><a href="{% url 'users:person_detail' person.id %}">{{ person.name }}</a></li>
-	{% endfor %}
-	</ul>
-{% else %}
-	<p>No users are in the system.</p>
-{% endif %}
+{% extends 'users/base.html' %}
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+{% block content %}
+    <p class="bold">Members</p>
+    {% if latest_person_list %}
+        <ul>
+            {% for person in latest_person_list %}
+                <li><a href="{% url 'users:person_detail' person.id %}">{{ person.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No users are in the system.</p>
+    {% endif %}
 
-<form action="{% url 'users:add_person' %}" method="post">
-{% csrf_token %}
-<p class="bold">Name</p>
-	<input type="text" name="name" value="">
-	<br>
-	
-	<input type="submit" value="Add" />
-</form>
-</body>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form action="{% url 'users:add_person' %}" method="post">
+        {% csrf_token %}
+        <p class="bold">Name</p>
+        <input type="text" name="name" value="">
+        <br>
+
+        <input type="submit" value="Add"/>
+    </form>
+    </body>
+{% endblock %}
