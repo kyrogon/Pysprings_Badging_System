@@ -3,6 +3,7 @@ from django.http import HttpResponse, Http404
 from django.template import loader
 
 from .models import Person, Badge
+from . import forms
 
 
 # Create your views here.
@@ -57,7 +58,10 @@ def add_person(request):
 
 
 def add_badge(request):
-    error = ''
+    context = {
+        'error_message': None,
+        'page_form': forms.NewBadgeForm
+    }
 
     if request.method == 'POST':
         # Get field values or empty string
@@ -66,13 +70,11 @@ def add_badge(request):
 
         # return a warning if any fields were left blank
         if '' in (b_name, b_presenter):
+            context['error_message'] = 'No fields may be left blank'
             return render(
                 request,
                 'users/add_badge.html',
-                {
-                    'error_message':
-                        'Neither badge name or presenter may be left blank'
-                },
+                context,
             )
         else:
             badge, _ = Badge.objects.get_or_create(
@@ -88,7 +90,5 @@ def add_badge(request):
     return render(
         request,
         "users/add_badge.html",
-        {
-            "error_message": error
-        },
+        context,
     )
