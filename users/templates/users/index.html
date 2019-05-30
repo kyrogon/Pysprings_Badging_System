@@ -10,7 +10,7 @@
 {% if latest_person_list %}
 	<ul>
 	{% for person in latest_person_list %}
-		<li><a href="{% url 'users:detail' person.id %}">{{ person.name }}</a></li>
+		<li><a href="{% url 'users:person_detail' person.id %}">{{ person.name }}</a></li>
 	{% endfor %}
 	</ul>
 {% else %}
