@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from django.template import loader
 
@@ -12,14 +12,9 @@ def index(request):
     # template = loader.get_template('users/index.html')
     context = {"latest_person_list": latest_person_list}
     return render(request, "users/index.html", context)
-    # return HttpResponse(template.render(context, request))
 
 
 def person_detail(request, person_id):
-    # try:
-    # 	person = Person.objects.get(pk = person_id)
-    # except Person.DoesNotExist:
-    # 	raise Http404("Person is not in the system.")
     person = get_object_or_404(Person, pk=person_id)
     return render(request, "users/user_detail.html", {"person": person})
 
@@ -29,66 +24,57 @@ def badge_detail(request, badge_id):
     return render(request, "users/badge_detail.html", {"badge": badge})
 
 
-def add_person(request):
-    latest_person_list = Person.objects.order_by("-name")
-    p_name = request.POST.get('name', '')
-    if not p_name:
-        return render(
-            request,
-            'users/index.html',
-            {
-                'error_message': "name field must not be left blank",
-                'latest_person': latest_person_list,
-            },
-        )
-    else:
-        for person in latest_person_list:
-            person_name = person.name
-            if p_name == person_name:
-                context = {
-                    "latest_person_list": latest_person_list,
-                    "error_message":      "Person already exists",
-                }
-                return render(request, "users/index.html", context)
-        p = Person(name=p_name)
-        p.save()
-        latest_person_list = Person.objects.order_by("-name")
-        context = {"latest_person_list": latest_person_list}
-        return render(request, "users/index.html", context)
-
-
-def add_badge(request):
+def person_form(request, person_id=None):
     context = {
         'error_message': None,
-        'page_form': forms.NewBadgeForm
+        'page_form':     None,
     }
 
-    if request.method == 'POST':
-        # Get field values or empty string
-        b_name = request.POST.get('name', '')
-        b_presenter = request.POST.get('presenter', '')
+    if person_id:
+        user = get_object_or_404(Person, id=person_id)
+        form = forms.UserForm(instance=user)
+    else:
+        user = None
+        form = forms.UserForm()
 
-        # return a warning if any fields were left blank
-        if '' in (b_name, b_presenter):
-            context['error_message'] = 'No fields may be left blank'
-            return render(
-                request,
-                'users/add_badge.html',
-                context,
-            )
-        else:
-            badge, _ = Badge.objects.get_or_create(
-                name=b_name,
-                presenter=b_presenter
-            )
-            # if badge.user_set.filter(name=person.name):
-            #     error = f'User has already obtained {badge}'
-            # else:
-            #     badge.user_set.add(person)
-            badge.save()
+    if request.method == 'POST':
+        form = forms.UserForm(request.POST, instance=user)
+        if form.is_valid():
+            instance = form.save()
+            return redirect('users:person_detail', person_id=instance.id)
+
+    context['page_form'] = form
 
     return render(
         request,
-        "users/add_badge.html",
+        'users/user_form.html',
+        context=context
+    )
+
+
+def badge_form_view(request, badge_id=None):
+    context = {
+        'error_message': None,
+        'page_form':     None,
+    }
+
+    if badge_id:
+        badge = get_object_or_404(Badge, id=badge_id)
+        form = forms.BadgeForm(instance=badge)
+    else:
+        badge = None
+        form = forms.BadgeForm()
+
+    if request.method == 'POST':
+        form = forms.BadgeForm(request.POST, instance=badge)
+        if form.is_valid():
+            instance = form.save()
+            return redirect('users:badge_detail', badge_id=instance.id)
+
+    context['page_form'] = form
+
+    return render(
+        request,
+        "users/badge_form.html",
         context,
     )

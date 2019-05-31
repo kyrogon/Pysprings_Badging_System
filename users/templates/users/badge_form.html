@@ -4,12 +4,12 @@
 {% block content %}
     <div class="row">
         <div class="col">
-            <h1>Adding Badge</h1>
+            <h1 class="text-center">Adding Badge</h1>
 
             {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
             Badges have names and presenters
-            <form action="{% url 'users:add_badge' %}" method="post" autocomplete="off">
+            <form method="post" autocomplete="off">
                 {% csrf_token %}
                 <div class="form-row">
                     <div class="col-6">
@@ -19,14 +19,12 @@
                         {{ page_form.presenter | as_crispy_field }}
                     </div>
                 </div>
-                {#Name:<br>#}
-                {#<input type="text" name="name" value="">#}
-                {#<br>#}
-                {#Presenter:<br>#}
-                {#<input type="text" name="presenter" value="">#}
-                {#<br>#}
-
-                <input class='btn btn-primary' type="submit" value="Add"/>
+                <div class="form-row">
+                    <div class="col">
+                        {{ page_form.user_set | as_crispy_field }}
+                    </div>
+                </div>
+                <input class='btn btn-primary' type="submit" value="Save">
             </form>
             <div> {# end col #}
             </div>

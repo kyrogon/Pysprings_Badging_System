@@ -12,8 +12,4 @@
             <li><a href="{% url "users:badge_detail" badge.id %}">{{ badge.name }} by {{ badge.presenter }}</li>
         {% endfor %}
     </ul>
-
-    {#<form action="{% url 'users:badge_detail' badge.id %}">#}
-    {#	<input type="submit" value="Add Badge">#}
-    {#</form>#}
 {% endblock %}

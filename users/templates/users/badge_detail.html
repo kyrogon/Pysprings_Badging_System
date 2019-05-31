@@ -2,5 +2,19 @@
 
 {% block content %}
     <h1>{{ badge.name }}</h1>
-    <h5>{{ badge.presenter }}</h5>
+    <a href="{% url 'users:edit_badge' badge.id %}">edit</a>
+    <h4>{{ badge.presenter }}</h4>
+
+    {% if badge.user_set.all %}
+        <table>
+            <tr>
+                <th>User Name</th>
+            </tr>
+            {% for user in badge.user_set.all %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 {% endblock %}
