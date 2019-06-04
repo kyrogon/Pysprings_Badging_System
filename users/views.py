@@ -32,55 +32,39 @@ def add_person(request):
     # Construct context
     page_context = {
         'latest_person_list': Person.objects.order_by('-name'),
-        'error_message': None
+        'error_message':      None,
     }
 
     person_name = request.POST.get('name', '')
 
     if not person_name:
         page_context['error_message'] = 'Username field must not be left blank'
-        # TODO: create a user_add page not tied into the index
         return render(request, 'users/index.html', page_context)
-    else:
-        new_person = Person(name=person_name)
-        new_person.save()
+
+    new_person = Person(name=person_name)
+    new_person.save()
 
     return redirect('users:index')
 
 
-def add_badge(request, person_id):
-    error = ''
-    person = get_object_or_404(Person, pk=person_id)
-    # Tries and excepts must be changed so no blank badges can be entered
-    try:
-        b_name = request.POST["name"]
-        b_presenter = request.POST["presenter"]
-    except (KeyError, Name.DoesNotExist):
-        return render(
-            request,
-            "users/badge.html",
-            {"person": person, "error_message": "Invalid Badge Name."},
-        )
-    except (KeyError, Presenter.DoesNotExist):
-        return render(
-            request,
-            "users/badge.html",
-            {"person": person, "error_message": "Invalid Presenter Name."},
-        )
-    else:
-        badge, _ = Badge.objects.get_or_create(
-            name=b_name,
-            presenter=b_presenter
-        )
-        if badge.user_set.filter(name=person.name):
-            error = f'User has already obtained {badge}'
-        else:
-            badge.user_set.add(person)
-            badge.save()
+def add_badge(request):
+    # construct context
+    page_context = {
+        'error_message': None,
+    }
 
-        return render(request, "users/detail.html",
-                      {
-                          "person": person,
-                          "error_message":  error
-                      },
-                      )
+    # get values from the page form
+    badge_name = request.POST.get('name', '')
+    badge_presenter = request.POST.get('presenter', '')
+
+    # verify that form fields have be filled
+    if '' in (badge_name, badge_presenter):
+        page_context['error_message'] = 'Neither form field may be left blank'
+    else:
+        new_badge, _ = Badge.objects.get_or_create(
+            name=badge_name,
+            presenter=badge_presenter,
+        )
+        new_badge.save()
+
+    return render(request, 'users/badge.html', page_context)
