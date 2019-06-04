@@ -47,9 +47,11 @@ def add_person(request):
     return redirect('users:index')
 
 
-def add_badge(request):
+def add_badge(request, person_id):
     # construct context
+    person = get_object_or_404(Person, pk=person_id)
     page_context = {
+        'person': person,
         'error_message': None,
     }
 
@@ -65,6 +67,7 @@ def add_badge(request):
             name=badge_name,
             presenter=badge_presenter,
         )
+        new_badge.user_set.add(person)
         new_badge.save()
 
     return render(request, 'users/badge.html', page_context)
