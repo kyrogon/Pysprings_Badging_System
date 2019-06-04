@@ -60,7 +60,7 @@ def add_badge(request, person_id):
     badge_presenter = request.POST.get('presenter', '')
 
     # verify that form fields have be filled
-    if '' in (badge_name, badge_presenter):
+    if not (badge_name or badge_presenter):
         page_context['error_message'] = 'Neither form field may be left blank'
     else:
         new_badge, _ = Badge.objects.get_or_create(
