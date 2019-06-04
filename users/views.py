@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from django.template import loader
 
@@ -29,30 +29,23 @@ def badge(request, person_id):
 
 
 def add_person(request):
-    try:
-        p_name = request.POST["name"]
-    except (KeyError, Name.DoesNotExist):
-        latest_person_list = Person.objects.order_by("-name")
-        context = {
-            "latest_person_list": latest_person_list,
-            "error_message":      "Invalid Person Name",
-        }
-        return render(request, "users/index.html", context)
+    # Construct context
+    page_context = {
+        'latest_person_list': Person.objects.order_by('-name'),
+        'error_message': None
+    }
+
+    person_name = request.POST.get('name', '')
+
+    if not person_name:
+        page_context['error_message'] = 'Username field must not be left blank'
+        # TODO: create a user_add page not tied into the index
+        return render(request, 'users/index.html', page_context)
     else:
-        latest_person_list = Person.objects.order_by("-name")
-        for person in latest_person_list:
-            person_name = person.name
-            if p_name == person_name:
-                context = {
-                    "latest_person_list": latest_person_list,
-                    "error_message":      "Person already exists",
-                }
-                return render(request, "users/index.html", context)
-        p = Person(name=p_name)
-        p.save()
-        latest_person_list = Person.objects.order_by("-name")
-        context = {"latest_person_list": latest_person_list}
-        return render(request, "users/index.html", context)
+        new_person = Person(name=person_name)
+        new_person.save()
+
+    return redirect('users:index')
 
 
 def add_badge(request, person_id):
