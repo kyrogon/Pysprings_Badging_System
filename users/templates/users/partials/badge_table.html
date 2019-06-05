@@ -4,6 +4,7 @@
     <thead>
     <tr>
         <th>Badge Name</th>
+        <th>Presenter</th>
         <th>Description</th>
         <th>User Count</th>
         <th>Date Created</th>
@@ -11,8 +12,9 @@
     </thead>
     <tbody>
     {% for badge in badge_list %}
-        <tr class="badge-row" data-href="{% url 'users:badge_detail' badge.id %}">
+        <tr class="linked" data-href="{% url 'users:badge_detail' badge.id %}">
             <td>{{ badge.name }}</td>
+            <td>{{ badge.presenter }}</td>
             <td>{{ badge.description }}</td>
             <td>{{ badge.user_count }}</td>
             <td>{{ badge.created_on }}</td>
@@ -28,7 +30,7 @@
             width: 100%;
         }
 
-        tbody > tr:hover {
+        tr.linked:hover {
             background-color: deepskyblue;
             cursor: pointer;
         }

@@ -1,14 +1,18 @@
 {% load sekizai_tags %}
 
 <table>
+    <thead>
     <tr>
         <th>Username</th>
     </tr>
+    </thead>
+    <tbody>
     {% for user in user_list %}
-        <tr data-href="{% url 'users:detail' user.id %}">
+        <tr class="linked" data-href="{% url 'users:detail' user.id %}">
             <td>{{ user.name }}</td>
         </tr>
     {% endfor %}
+    </tbody>
 </table>
 
 {% addtoblock 'css' %}
@@ -17,7 +21,7 @@
             width: 100%;
         }
 
-        tbody > tr:hover {
+        tr.linked:hover {
             background-color: deepskyblue;
             cursor: pointer;
         }
