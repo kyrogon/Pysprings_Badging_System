@@ -1,0 +1,24 @@
+{% load crispy_forms_filters %}
+<form method="post">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="col-12">
+            {{ form | as_crispy_errors }}
+        </div>
+        <div class="col-md-6">
+            {{ form.name | as_crispy_field }}
+        </div>
+        <div class="col-md-6">
+            {{ form.presenter | as_crispy_field }}
+        </div>
+        <div class="col-12">
+            {{ form.description | as_crispy_field }}
+        </div>
+        <div class="col-12">
+            {{ form.user_set | as_crispy_field }}
+        </div>
+        <div class="col">
+            <input type="submit" class="btn btn-primary" value="Submit">
+        </div>
+    </div>
+</form>

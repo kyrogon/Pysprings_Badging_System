@@ -1,0 +1,44 @@
+{% load sekizai_tags %}
+
+<table style="width: 100%;">
+    <thead>
+    <tr>
+        <th>Badge Name</th>
+        <th>Description</th>
+        <th>User Count</th>
+        <th>Date Created</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for badge in badge_list %}
+        <tr class="badge-row" data-href="{% url 'users:badge_detail' badge.id %}">
+            <td>{{ badge.name }}</td>
+            <td>{{ badge.description }}</td>
+            <td>{{ badge.user_count }}</td>
+            <td>{{ badge.created_on }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<p>Testing one two three</p>
+
+{% addtoblock 'css' %}
+    <style>
+        table {
+            width: 100%;
+        }
+
+        tbody > tr:hover {
+            background-color: deepskyblue;
+            cursor: pointer;
+        }
+    </style>
+{% endaddtoblock %}
+
+{% addtoblock 'js' %}
+    <script>
+        $('tr[data-href]').on("click", function () {
+            document.location = $(this).data('href');
+        });
+    </script>
+{% endaddtoblock %}

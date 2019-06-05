@@ -3,6 +3,7 @@ from django.http import HttpResponse, Http404
 from django.template import loader
 
 from .models import Person, Badge
+from .forms import BadgeForm
 
 
 # Create your views here.
@@ -47,27 +48,62 @@ def add_person(request):
     return redirect('users:index')
 
 
-def add_badge(request, person_id):
-    # construct context
-    person = get_object_or_404(Person, pk=person_id)
-    page_context = {
-        'person': person,
-        'error_message': None,
+# def add_badge(request, person_id):
+#     # construct context
+#     person = get_object_or_404(Person, pk=person_id)
+#     page_context = {
+#         'person': person,
+#         'error_message': None,
+#     }
+#
+#     # get values from the page form
+#     badge_name = request.POST.get('name', '')
+#     badge_presenter = request.POST.get('presenter', '')
+#
+#     # verify that form fields have be filled
+#     if not (badge_name or badge_presenter):
+#         page_context['error_message'] = 'Neither form field may be left blank'
+#     else:
+#         new_badge, _ = Badge.objects.get_or_create(
+#             name=badge_name,
+#             presenter=badge_presenter,
+#         )
+#         new_badge.user_set.add(person)
+#         new_badge.save()
+#
+#     return render(request, 'users/badge.html', page_context)
+
+
+def badge_list(request):
+    badges = Badge.objects.all()
+    context = {
+        'badge_list': badges
     }
 
-    # get values from the page form
-    badge_name = request.POST.get('name', '')
-    badge_presenter = request.POST.get('presenter', '')
+    return render(request, 'users/badge_list.html', context)
 
-    # verify that form fields have be filled
-    if not (badge_name or badge_presenter):
-        page_context['error_message'] = 'Neither form field may be left blank'
+
+def badge_form(request, badge_id=None):
+    if badge_id:
+        badge_instance = Badge.objects.get(pk=badge_id)
     else:
-        new_badge, _ = Badge.objects.get_or_create(
-            name=badge_name,
-            presenter=badge_presenter,
-        )
-        new_badge.user_set.add(person)
-        new_badge.save()
+        badge_instance = None
 
-    return render(request, 'users/badge.html', page_context)
+    if request.method == 'POST':
+        form = BadgeForm(request.POST, instance=badge_instance)
+        if form.is_valid():
+            new_badge = form.save()
+            return redirect('users:badge_detail', new_badge.id)
+    elif badge_id:
+        form = BadgeForm(instance=badge_instance)
+    else:
+        form = BadgeForm()
+
+    return render(request, 'users/add_badge.html', {'form': form})
+
+
+def badge_detail(request, badge_id):
+    badge = Badge.objects.get(pk=badge_id)
+    if request.GET.get('edit', False):
+        return redirect('users:edit_badge', badge_id=badge.id)
+    return render(request, 'users/badge_detail.html', {'badge': badge})

@@ -1,0 +1,33 @@
+{% load sekizai_tags %}
+
+<table>
+    <tr>
+        <th>Username</th>
+    </tr>
+    {% for user in user_list %}
+        <tr data-href="{% url 'users:detail' user.id %}">
+            <td>{{ user.name }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% addtoblock 'css' %}
+    <style>
+        table {
+            width: 100%;
+        }
+
+        tbody > tr:hover {
+            background-color: deepskyblue;
+            cursor: pointer;
+        }
+    </style>
+{% endaddtoblock %}
+
+{% addtoblock 'js' %}
+    <script>
+        $('tr[data-href]').on("click", function () {
+            document.location = $(this).data('href');
+        });
+    </script>
+{% endaddtoblock %}

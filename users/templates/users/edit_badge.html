@@ -1,0 +1,6 @@
+{% extends 'users/base.html' %}
+
+{% block main %}
+    <h1>Editing Badge: {{ badge.name }}</h1>
+    {% include 'users/partials/badge_form.html' %}
+{% endblock %}
