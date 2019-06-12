@@ -19,11 +19,6 @@ def user_detail(request, person_id):
     return render(request, "users/detail.html", {"person": person})
 
 
-def badge_detail(request, person_id):
-    person = get_object_or_404(Person, pk=person_id)
-    return render(request, "users/badge.html", {"person": person})
-
-
 def add_person(request):
     # Construct context
     page_context = {
