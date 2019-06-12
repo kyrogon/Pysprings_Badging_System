@@ -14,7 +14,7 @@ input[type="submit"] {
     background-color: rgb(99, 165, 42);
 }
 
-input[type="text"]  {
+input[type="text"] {
     border: 1px solid black;
 }
 
@@ -25,4 +25,22 @@ form {
 p.bold {
     margin: 0;
     font-weight: bold;
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    border: 1px solid black;
+}
+
+
+tr.linked:nth-child(odd) {
+    background-color: lightgrey;
+}
+
+tr.linked:hover {
+    background-color: deepskyblue;
+    cursor: pointer;
 }

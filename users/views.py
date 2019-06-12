@@ -6,7 +6,6 @@ from .models import Person, Badge
 from .forms import BadgeForm
 
 
-# Create your views here.
 def index(request):
     latest_person_list = Person.objects.order_by("-name")
     # template = loader.get_template('users/index.html')
@@ -15,16 +14,12 @@ def index(request):
     # return HttpResponse(template.render(context, request))
 
 
-def detail(request, person_id):
-    # try:
-    # 	person = Person.objects.get(pk = person_id)
-    # except Person.DoesNotExist:
-    # 	raise Http404("Person is not in the system.")
+def user_detail(request, person_id):
     person = get_object_or_404(Person, pk=person_id)
     return render(request, "users/detail.html", {"person": person})
 
 
-def badge(request, person_id):
+def badge_detail(request, person_id):
     person = get_object_or_404(Person, pk=person_id)
     return render(request, "users/badge.html", {"person": person})
 
@@ -46,32 +41,6 @@ def add_person(request):
     new_person.save()
 
     return redirect('users:index')
-
-
-# def add_badge(request, person_id):
-#     # construct context
-#     person = get_object_or_404(Person, pk=person_id)
-#     page_context = {
-#         'person': person,
-#         'error_message': None,
-#     }
-#
-#     # get values from the page form
-#     badge_name = request.POST.get('name', '')
-#     badge_presenter = request.POST.get('presenter', '')
-#
-#     # verify that form fields have be filled
-#     if not (badge_name or badge_presenter):
-#         page_context['error_message'] = 'Neither form field may be left blank'
-#     else:
-#         new_badge, _ = Badge.objects.get_or_create(
-#             name=badge_name,
-#             presenter=badge_presenter,
-#         )
-#         new_badge.user_set.add(person)
-#         new_badge.save()
-#
-#     return render(request, 'users/badge.html', page_context)
 
 
 def badge_list(request):

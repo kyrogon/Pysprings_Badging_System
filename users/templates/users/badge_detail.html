@@ -1,11 +1,14 @@
 {% extends 'users/base.html' %}
 {% block main %}
-    <p>&lt <a href="{% url 'users:badge_list' %}">overview</a></p>
+    <div>
+        <p>&lt <a href="{% url 'users:badge_list' %}">overview</a></p>
+    </div>
     <h1 style="display: inline">{{ badge.name }}</h1>
     <a href="{% url 'users:edit_badge' badge.id %}">(edit)</a>
     <p>Presented by {{ badge.presenter }}</p>
     <p>{{ badge.description }}</p>
 
+    <h3 class="text-center">Badge Userset</h3>
     {% with badge.user_set.all as user_list %}
         {% include 'users/partials/user_table.html' %}
     {% endwith %}
